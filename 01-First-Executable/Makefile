@@ -1,5 +1,8 @@
 CC=g++
 CFLAGS=--std=c++11 -I.
 
-binary:
-	$(CC) embedder/main.cc library/api.cc -o binary $(CFLAGS)
+embedder_binary:
+	$(CC) embedder/main.cc library/api.cc -o embedder_binary $(CFLAGS)
+
+clean:
+	rm embedder_binary
