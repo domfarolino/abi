@@ -3,16 +3,6 @@
 // Use C linkage for ABI stability.
 extern "C" {
 
-/*
-struct EmbedderAPI {
-  size_t size;
-
-  // Called by library.
-  void(Embedder1)();
-  void(Embedder2)();
-};
-*/
-
 struct LibraryAPI {
   size_t size;
 
@@ -20,6 +10,10 @@ struct LibraryAPI {
   void(*Library2)();
 };
 
+// Called by our embedder to get a concerete implementation of the above
+// API-exposed function table, i.e., an instance of that table where the
+// function pointers point to concrete function implementations that are
+// internal to this library.
 void GetLibraryAPI(LibraryAPI* embedder_api_ptr);
 
 }  // namespace "C"
