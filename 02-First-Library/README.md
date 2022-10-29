@@ -5,4 +5,4 @@ https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html.
 
 Steps
  - `make library`
- - `make embedder`
+ - `make embedder_binary`
