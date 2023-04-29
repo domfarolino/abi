@@ -16,4 +16,4 @@ struct LibraryAPI {
 // internal to this library.
 void GetLibraryAPI(LibraryAPI* embedder_api_ptr);
 
-}  // namespace "C"
+}  // extern "C"

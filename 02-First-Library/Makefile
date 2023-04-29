@@ -1,6 +1,8 @@
 CC=g++
 CFLAGS=--std=c++11 -Wall -Werror -I.
 
+all: library embedder_binary
+
 library: liblibrary.so
 
 liblibrary.so: library/api.cc library/api.h
@@ -10,8 +12,6 @@ liblibrary.so: library/api.cc library/api.h
 
 embedder_binary: embedder/main.cc
 	$(CC) embedder/main.cc -L./ -llibrary -o embedder_binary $(CFLAGS)
-
-all: library embedder_binary
 
 clean:
 	rm liblibrary.so embedder_binary
