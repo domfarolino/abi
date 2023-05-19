@@ -1,11 +1,10 @@
 CC=g++
 CFLAGS=--std=c++11 -Wall -Werror -I.
 
-all: library embedder_binary
+all: lib embedder_binary
 
-library: liblibrary.so
-
-liblibrary.so: library/api.cc library/api.h
+lib: library/api.cc library/api.h
+	# Position-independent code (`-fpic`) is required for shared libraries.
 	$(CC) -c -fpic library/api.cc -o library.o $(CFLAGS)
 	$(CC) -shared -o liblibrary.so library.o
 	rm library.o
