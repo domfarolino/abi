@@ -10,5 +10,13 @@ There's nothing special about this, it's just a reference application.
 Run:
 
 ```sh
+$ make embedder_binary
+$ make clean
+```
+
+Or:
+
+```sh
 $ make
+$ make clean
 ```
