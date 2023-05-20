@@ -4,17 +4,27 @@
 
 #include "api.h"
 
-LibraryAPI::LibraryAPI() {
-  std::cout << "LibraryAPI::ctor() sizeof(*this): " << sizeof(*this) << std::endl;
-}
-void LibraryAPI::SortVector(std::vector<int>& in_vec) {
-  std::sort(in_vec.begin(), in_vec.end());
-  std::cout << "Embedder called SortVector()" << std::endl;
-}
-std::string LibraryAPI::GetString() {
-  std::cout << "Embedder called GetString()" << std::endl;
+namespace library {
 
-  private_1_ = "";
-  private_3_ = {};
-  return "This is a medium sized string";
+std::vector<Point> GetPoints() {
+  std::cout << "library::GetPoints() running. sizeof(Point): " << sizeof(Point) << std::endl;
+  std::vector<Point> points;
+
+  for (int i = 0; i < 5; ++i) {
+    Point point;
+    point.SetX(i);
+    point.SetY(i);
+    points.push_back(point);
+  }
+
+  return points;
 }
+
+void Point::SetX(int x) { x_ = x; }
+void Point::SetY(int y) { y_ = y; }
+
+void Point::Print() const {
+  std::cout << "(x: " << x_ << ", y: " << y_ << ")" << std::endl;
+}
+
+}  // namespace library

@@ -1,14 +1,21 @@
 #include <string>
 #include <vector>
 
-class LibraryAPI {
- public:
-  LibraryAPI();
+namespace library {
 
-  void SortVector(std::vector<int>&);
-  std::string GetString();
+// Inspired by https://www.youtube.com/watch?v=DZ93lP1I7wU.
+class Point {
+ public:
+  Point() = default;
+  void SetX(int);
+  void SetY(int);
+  void Print() const;
 
  private:
-  std::string private_1_;
-  std::vector<int> private_3_;
+  int x_ = 0;
+  int y_ = 0;
 };
+
+std::vector<Point> GetPoints();
+
+};  // namespace library

@@ -1,23 +1,46 @@
-diff --git a/04-ABI-Incompatibility/library/api.cc b/04-ABI-Incompatibility/library/api.cc
-index fc2519b..9d36855 100644
+diff --git a/03-Shared-Library-ABI-Break/library/api.cc b/03-Shared-Library-ABI-Break/library/api.cc
+index e7a9279..c743227 100644
 --- a/03-Shared-Library-ABI-Break/library/api.cc
 +++ b/03-Shared-Library-ABI-Break/library/api.cc
-@@ -15,6 +15,7 @@ std::string LibraryAPI::GetString() {
-   std::cout << "Embedder called GetString()" << std::endl;
+@@ -14,6 +14,8 @@ std::vector<Point> GetPoints() {
+     Point point;
+     point.SetX(i);
+     point.SetY(i);
++    point.SetZ(i);
++    point.SetName("");
+     points.push_back(point);
+   }
  
-   private_1_ = "";
-+  private_2_ = "";
-   private_3_ = {};
-   return "This is a medium sized string";
+@@ -22,9 +24,11 @@ std::vector<Point> GetPoints() {
+ 
+ void Point::SetX(int x) { x_ = x; }
+ void Point::SetY(int y) { y_ = y; }
++void Point::SetZ(int z) { z_ = z; }
++void Point::SetName(std::string name) { name_ = name; }
+ 
+ void Point::Print() const {
+-  std::cout << "(x: " << x_ << ", y: " << y_ << ")" << std::endl;
++  std::cout << "(x: " << x_ << ", y: " << y_ << ", z: " << z_ << ")" << std::endl;
  }
-diff --git a/04-ABI-Incompatibility/library/api.h b/04-ABI-Incompatibility/library/api.h
-index f03ba31..715e4d7 100644
+ 
+ }  // namespace library
+diff --git a/03-Shared-Library-ABI-Break/library/api.h b/03-Shared-Library-ABI-Break/library/api.h
+index 940bb8a..103ed72 100644
 --- a/03-Shared-Library-ABI-Break/library/api.h
 +++ b/03-Shared-Library-ABI-Break/library/api.h
-@@ -10,5 +10,6 @@ class LibraryAPI {
+@@ -9,11 +9,15 @@ class Point {
+   Point() = default;
+   void SetX(int);
+   void SetY(int);
++  void SetZ(int);
++  void SetName(std::string);
+   void Print() const;
  
   private:
-   std::string private_1_;
-+  std::string private_2_;
-   std::vector<int> private_3_;
+   int x_ = 0;
+   int y_ = 0;
++  int z_ = 0;
++  std::string name_;
  };
+ 
+ std::vector<Point> GetPoints();
