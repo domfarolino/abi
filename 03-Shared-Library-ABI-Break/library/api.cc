@@ -5,7 +5,7 @@
 #include "api.h"
 
 LibraryAPI::LibraryAPI() {
-  std::cout << "LibraryAPI::ctor() size:" << sizeof(this) << std::endl;
+  std::cout << "LibraryAPI::ctor() sizeof(*this): " << sizeof(*this) << std::endl;
 }
 void LibraryAPI::SortVector(std::vector<int>& in_vec) {
   std::sort(in_vec.begin(), in_vec.end());

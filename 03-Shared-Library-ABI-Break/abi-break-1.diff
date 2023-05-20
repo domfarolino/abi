@@ -1,7 +1,7 @@
 diff --git a/04-ABI-Incompatibility/library/api.cc b/04-ABI-Incompatibility/library/api.cc
 index fc2519b..9d36855 100644
---- a/04-ABI-Incompatibility/library/api.cc
-+++ b/04-ABI-Incompatibility/library/api.cc
+--- a/03-Shared-Library-ABI-Break/library/api.cc
++++ b/03-Shared-Library-ABI-Break/library/api.cc
 @@ -15,6 +15,7 @@ std::string LibraryAPI::GetString() {
    std::cout << "Embedder called GetString()" << std::endl;
  
@@ -12,8 +12,8 @@ index fc2519b..9d36855 100644
  }
 diff --git a/04-ABI-Incompatibility/library/api.h b/04-ABI-Incompatibility/library/api.h
 index f03ba31..715e4d7 100644
---- a/04-ABI-Incompatibility/library/api.h
-+++ b/04-ABI-Incompatibility/library/api.h
+--- a/03-Shared-Library-ABI-Break/library/api.h
++++ b/03-Shared-Library-ABI-Break/library/api.h
 @@ -10,5 +10,6 @@ class LibraryAPI {
  
   private:

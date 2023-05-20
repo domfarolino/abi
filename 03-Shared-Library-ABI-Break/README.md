@@ -16,10 +16,19 @@ $ ./embedder_binary
 $ make clean
 ```
 
-Or:
+# Break the ABI!
+
+This directory gives you a readymade way to change the code in `library/` to
+make `liblibrary.so` suffer an ABI break without changing itse A*P*I.
+
+To experiment with this, run:
 
 ```sh
-$ make
+$ git apply abi-break-1.diff
+$ make lib
 $ ./embedder_binary
-$ make clean
 ```
+
+Just be sure you don't rebuild `embedder_binary` after you update the library,
+or else everything will work as expected and you won't be able to observe the
+ABI break.

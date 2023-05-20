@@ -9,7 +9,7 @@ int main() {
   std::vector<int> vector = {42, 24, 2, 3, 6, 5, 32, 24, 5};
   std::cout << "Embedder is about to call SortVector()" << std::endl;
   lib_api.SortVector(vector);
-  std::cout << "Embedder is about to call Library2()" << std::endl;
+  std::cout << "Embedder is about to call GetString()" << std::endl;
   std::string str = lib_api.GetString();
 
   for (const int& n : vector) {
