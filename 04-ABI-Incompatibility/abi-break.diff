@@ -1,0 +1,23 @@
+diff --git a/04-ABI-Incompatibility/library/api.cc b/04-ABI-Incompatibility/library/api.cc
+index fc2519b..9d36855 100644
+--- a/04-ABI-Incompatibility/library/api.cc
++++ b/04-ABI-Incompatibility/library/api.cc
+@@ -15,6 +15,7 @@ std::string LibraryAPI::GetString() {
+   std::cout << "Embedder called GetString()" << std::endl;
+ 
+   private_1_ = "";
++  private_2_ = "";
+   private_3_ = {};
+   return "This is a medium sized string";
+ }
+diff --git a/04-ABI-Incompatibility/library/api.h b/04-ABI-Incompatibility/library/api.h
+index f03ba31..715e4d7 100644
+--- a/04-ABI-Incompatibility/library/api.h
++++ b/04-ABI-Incompatibility/library/api.h
+@@ -10,5 +10,6 @@ class LibraryAPI {
+ 
+  private:
+   std::string private_1_;
++  std::string private_2_;
+   std::vector<int> private_3_;
+ };
