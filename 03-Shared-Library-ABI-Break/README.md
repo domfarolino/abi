@@ -2,6 +2,7 @@
 
 Good resource:
  - https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html
+ - https://stackoverflow.com/a/54970475/3947332
 
 This is a basic demonstration of building a shared library and linking it
 dynamically (at runtime) with a binary that depends on it. The next example will
