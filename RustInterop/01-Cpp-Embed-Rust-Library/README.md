@@ -1,4 +1,4 @@
-# Simple C <-> Rust interop
+# C++ embedding a Rust shared library
 
 This is perhaps the most simple example of creating a C ABI implemented in Rust,
 and calling it from an existing C program. A really great resource to consult

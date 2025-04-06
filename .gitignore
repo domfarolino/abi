@@ -1,2 +1,4 @@
 *.so
+*.dylib
 embedder_binary
+target
