@@ -28,10 +28,13 @@ our project to consume.
 
 Before compiling rust source code, the build script [**build.rs**](./build.rs)
 runs, which does two things:
-  1. Enumerates the shared libraries that our binary depends on with the
+  1. Enumerates the libraries that our binary depends on with the
      [`cargo:rustc-link-lib`][rustc-link-lib] directive, and tells **rustc** how
-     to find those libraries at compile time with the
-     [`cargo:rustc-link-search`][rustc-link-search] directive.
+     to find them at compile time with the
+     [`cargo:rustc-link-search`][rustc-link-search] directive, for compile-time
+     symbol resolution—this aids any `#[link]` directives in our Rust source. It
+     also tells the compiler how to link those libraries with the final binary
+     (i.e., static, dynamic/shared, etc.).
   2. Directs the compiler to generate runtime metadata that will get baked into
      the final binary for use by the runtime linker. Specifically,
      [`cargo:rustc-link-lib`][rustc-link-lib] bakes in dynamic dependency

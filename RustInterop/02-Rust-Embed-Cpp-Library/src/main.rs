@@ -2,6 +2,13 @@ use std::ffi::CString;
 use std::os::raw::c_char;
 
 // Link to the C/C++ shared library.
+//
+// This directive tells the Rust compiler which shared library contains the
+// external symbols that correspond to the functions in this extern block. It
+// complements the `build.rs` build script like so:
+//   1. `#[link]` tells the compiler "these symbols come from library X".
+//   2. `build.rs` tells the compiler (and linker) "how to find library X", and
+//      all libraries specified by the `#[link]` directives.
 #[link(name = "library")]
 extern "C" {
     // Declare the external C/C++ functions we want to use.
