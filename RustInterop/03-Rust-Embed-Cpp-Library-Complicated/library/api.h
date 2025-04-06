@@ -4,6 +4,7 @@
 extern "C" {
 
 struct LibraryAPI {
+  // See the implementation for notes about this member.
   size_t size;
 
   void(*PrintString)(char* str);

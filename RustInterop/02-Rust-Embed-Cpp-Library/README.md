@@ -1,9 +1,46 @@
-# Simple C <-> Rust interop
+# Rust embedding a C++ shared library
 
-This is perhaps the most simple example of creating a C ABI implemented in Rust,
-and calling it from an existing C program. A really great resource to consult
-on this topic is:
-http://blog.asleson.org/2021/02/23/how-to-writing-a-c-shared-library-in-rust/.
+This directory implements is the inverse of
+[01-Cpp-Embed-Rust-Library](../01-Cpp-Embed-Rust-Library); in this case, a Rust
+program embeds a simple C++ shared library that exposes a C ABI which the Rust
+binary interacts with.
 
-For more information on going the other way — calling C functions from rust — see
-https://stackoverflow.com/a/50230460/3947332.
+To accommodate this more complex scenario where your rust project needs to
+integrate with a shared library that will be dynamically linked at runtime, we
+can use a mixture of build scripts (**build.rs**) and compiler directives to
+teach the compiler and the final binary how to find and link to the shared
+library. This is useful when embedding system-level libraries that aren't
+intended to be compiled into client applications directly, or a library that
+gets updated regularly outside the scope of your project.
+
+This example does not use the [**cc**][cc] crate to compile the shared library,
+since you often don't have access to a shared library's source or build process
+process. Rather, you're just consuming the library's binary directly.
+
+For the purpose of this example, the shared library's source is in
+[**library/api.h**](./library/api.h) and [**library/api.cc**](./library/api.cc),
+so we can transparently see its API surface. However, we build and distribute
+the resulting shared library binary independent of our Rust build process, with
+the provided [**Makefile**](./Makefile), which produces a suitable binary for
+our project to consume.
+
+## Rust build process modifications
+
+Before compiling rust source code, the "build" file ([**build.rs**](./build.rs))
+specified in **Cargo.toml** runs. It enumerates the shared libraries that our
+project depends on with the [`cargo:rustc-link-lib`][rustc-link-lib] directive,
+and tells **rustc** how to find those libraries at compile time with the
+[`cargo:rustc-link-search`][rustc-link-search] directive.
+
+The [`cargo:rustc-link-lib`][rustc-link-lib] directive also bakes dynamic
+dependency metadata into the final binary, which tells the linker the names of
+the libraries to find at runtime. At runtime, it will search for these libraries
+in its default places (usually system defaults like `/usr/lib`), but you can
+also include specific runtime path information in the final binary with the
+[`cargo:rustc-link-arg`][rustc-link-arg] directive, which informs the linker
+*where* to search for shared library dependencies. This can make your binary
+more portable, but we do not make use of this in our example.
+
+[rustc-link-arg]: https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-arg
+[rustc-link-lib]: https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-lib
+[rustc-link-search]: https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-search
