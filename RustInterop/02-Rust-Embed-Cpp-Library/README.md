@@ -26,20 +26,22 @@ our project to consume.
 
 ## Rust build process modifications
 
-Before compiling rust source code, the "build" file ([**build.rs**](./build.rs))
-specified in **Cargo.toml** runs. It enumerates the shared libraries that our
-project depends on with the [`cargo:rustc-link-lib`][rustc-link-lib] directive,
-and tells **rustc** how to find those libraries at compile time with the
-[`cargo:rustc-link-search`][rustc-link-search] directive.
-
-The [`cargo:rustc-link-lib`][rustc-link-lib] directive also bakes dynamic
-dependency metadata into the final binary, which tells the linker the names of
-the libraries to find at runtime. At runtime, it will search for these libraries
-in its default places (usually system defaults like `/usr/lib`), but you can
-also include specific runtime path information in the final binary with the
-[`cargo:rustc-link-arg`][rustc-link-arg] directive, which informs the linker
-*where* to search for shared library dependencies. This can make your binary
-more portable, but we do not make use of this in our example.
+Before compiling rust source code, the build script [**build.rs**](./build.rs)
+runs, which does two things:
+  1. Enumerates the shared libraries that our binary depends on with the
+     [`cargo:rustc-link-lib`][rustc-link-lib] directive, and tells **rustc** how
+     to find those libraries at compile time with the
+     [`cargo:rustc-link-search`][rustc-link-search] directive.
+  2. Directs the compiler to generate runtime metadata that will get baked into
+     the final binary for use by the runtime linker. Specifically,
+     [`cargo:rustc-link-lib`][rustc-link-lib] bakes in dynamic dependency
+     metadata into the final binary that tells the linker the names of the
+     libraries to load at runtime. At runtime, it will search for these
+     libraries in default places like `/usr/lib`, but you can also include
+     specific runtime path information in the final binary with the
+     [`cargo:rustc-link-arg`][rustc-link-arg] directive, which informs the
+     linker *where* to search for shared library dependencies. This can make
+     your binary more portable, but we do not make use of this in our example.
 
 [rustc-link-arg]: https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-arg
 [rustc-link-lib]: https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-lib
