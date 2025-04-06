@@ -1,4 +1,6 @@
 fn main() {
+    // Adds search paths to the compiler, telling it how to find any libraries
+    // referenced, for compile-time symbol resolution.
     println!("cargo:rustc-link-search=native=.");
 
     // This builds into a dynamic dependency entry for `liblibrary` into the
